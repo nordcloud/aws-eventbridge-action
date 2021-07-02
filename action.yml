@@ -1,0 +1,40 @@
+name: 'AWS EventBridge Action'
+description: 'Write to AWS EventBridge'
+inputs:
+  region:
+    description: 'AWS Region.'
+    required: false
+    default: 'eu-west-1'
+  detail:
+    description: 'A valid JSON string. There is no other schema imposed. The JSON string may contain fields and nested subobjects.'
+    required: false
+  detail_type:
+    description: 'Free-form string used to decide what fields to expect in the event detail.'
+    required: false
+  event_bus_name:
+    description: 'The name or ARN of the event bus to receive the event. Only the rules that are associated with this event bus are used to match the event. If you omit this, the default event bus is used.'
+    required: false
+  resources:
+    description: 'AWS resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. Any number, including zero, may be present.'
+    required: false
+  source:
+    description: 'The source of the event.'
+    required: false
+  timestamp:
+    description: 'The time stamp of the event, per RFC3339. If no time stamp is provided, the time stamp of the PutEvents call is used.'
+    required: false
+  trace_header:
+    description: 'An AWS X-Ray trade header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the event.'
+    required: false
+outputs:
+  http_status_code:
+    description: 'The status code of the last HTTP response received for this operation.'
+  attempts:
+    description: 'The number of times this operation was attempted.'
+  request_id:
+    description: 'A unique identifier for the last request sent for this operation.'
+  response:
+    description: 'Full AWS Eventbridge response.'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

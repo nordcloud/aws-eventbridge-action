@@ -1,0 +1,25 @@
+name: Test sending event
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test sending event to AWS Eventbridge
+        uses: nordcloud/aws-eventbridge-action@master
+        with:
+          region: eu-west-1
+          detail: ${{ secrets.DETAIL }}
+          detail_type: ${{ secrets.DETAIL_TYPE }}
+          event_bus_name: ${{ secrets.EVENT_BUS_NAME }}
+          resources: ${{ secrets.RESOURCES }}
+          source: ${{ secrets.SOURCE }}
+          trace_header: ${{ secrets.TRACE_HEADER }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+
+
